@@ -1,0 +1,54 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>calendarOne</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<style>
+		.head {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+		}
+		.mBtn {
+	    	margin-right: 15px;
+	    }
+	</style>
+</head>
+<body>
+	<h1 class="head">가계 내역</h1>
+	<h2 class="head">${targetYear}년 ${targetMonth+1}월 ${targetDate}일</h2>
+	<table class="table table-hover">
+		<tr>
+			<th>구분</th>
+			<th>금액</th>
+			<th>메모</th>
+			<th>작성일</th>
+		</tr>
+		<c:forEach var="one" items="${list}">
+			<tr>
+				<td>${one.category}</td>
+				<c:if test="${one.category == '수입'}">
+					<td style="color:blue">+${one.price}</td>
+				</c:if>
+				<c:if test="${one.category == '지출'}">
+					<td style="color:red;">-${one.price}</td>
+				</c:if>
+				<td>${one.memo}</td>
+				<td>${fn:substring(one.createdate,0,11)}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	<div class="head">
+		<a type="button" class="btn btn-outline-secondary mBtn" href="${pageContext.request.contextPath}/addCashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${targetDate}">작성하기</a>
+		<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/cashbook?targetYear=${targetYear}&targetMonth=${targetMonth}">달력보기</a>
+	</div>
+</body>
+</html>
