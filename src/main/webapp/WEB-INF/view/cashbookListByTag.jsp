@@ -51,20 +51,26 @@
 		</c:forEach>
 	</table>
 	<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=1">첫페이지</a>
-	<c:if test="${minPage>1}">
-		<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${minPage-pagePerPage}">이전</a>
-	</c:if>
-    <c:forEach var="i" begin="${minPage}" end="${maxPage}" step="1">
-    	<c:if test="${i == currentPage}">
-			<a>${i}</a>
-    	</c:if>
-    	<c:if test="${i != currentPage}">
-			<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${i}">${i}</a>
-    	</c:if>
-    </c:forEach>
-	<c:if test="${maxPage != lastPage}">
-		<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${minPage+pagePerPage}">다음</a>
-	</c:if>
-	<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${lastPage}">마지막페이지</a>
+	<div> 
+		<c:if test="${minPage>1}">
+			<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${minPage-pagePerPage}">이전</a>
+		</c:if>
+	</div>
+	<div>
+	    <c:forEach var="i" begin="${minPage}" end="${maxPage}" step="1">
+	    	<c:if test="${i == currentPage}">
+				<a>${i}</a>
+	    	</c:if>
+	    	<c:if test="${i != currentPage}">
+				<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${i}">${i}</a>
+	    	</c:if>
+	    </c:forEach>
+    </div>
+    <div>
+		<c:if test="${maxPage != lastPage}">
+			<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${minPage+pagePerPage}">다음</a>
+		</c:if>
+		<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${lastPage}">마지막페이지</a>
+    </div>
 </body>
 </html>
