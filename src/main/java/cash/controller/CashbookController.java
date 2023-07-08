@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import cash.model.CashbookDao;
 import cash.model.HashtagDao;
+import cash.service.CounterService;
 import cash.vo.Cashbook;
 import cash.vo.Member;
 
@@ -22,6 +23,8 @@ import cash.vo.Member;
  */
 @WebServlet("/cashbook")
 public class CashbookController extends HttpServlet {
+	private CounterService counterService = null;
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// session 인증 검사 코드
@@ -72,6 +75,12 @@ public class CashbookController extends HttpServlet {
 		System.out.println(totalCell + " : totalCell");
 		System.out.println(endBlank + " : endBlank");
 		
+		// 접속자수 산출
+		this.counterService = new CounterService();
+		
+		int counter = counterService.getCounter();
+		int totalCounter = counterService.getCounterAll();
+		
 		// 모델을 호출(DAO 타겟 월의 수입/지출 데이터)
 		List<Cashbook> list = new CashbookDao().selectCashbookListByMonth(memberId, targetYear, targetMonth+1);
 		
@@ -88,6 +97,10 @@ public class CashbookController extends HttpServlet {
 		request.setAttribute("list", list);
 		request.setAttribute("htList", htList);
 		// 달력 출력하는 뷰
+		
+		// 접속자수 
+		request.setAttribute("counter", counter);
+		request.setAttribute("totalCounter", totalCounter);
 		
 		request.getRequestDispatcher("/WEB-INF/view/cashbook.jsp").forward(request, response);
 	}

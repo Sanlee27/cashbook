@@ -87,13 +87,20 @@
 	<!-- 해시태그 -->
 	<div>
 		<h3 style="text-align: center;">이달의 해시태그</h3>
-		<div style="text-align: center;">
-			<c:forEach var="m" items="${htList}">
-				<a class="hashTag" href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">
-					#${m.word}(${m.cnt})
-				</a>
-			</c:forEach>
-		</div>
+		<div style="display: flex; justify-content: space-between;">
+	        <div style="text-align: center; flex-grow: 1;">
+	            <c:forEach var="m" items="${htList}">
+	                <a class="hashTag" href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">
+	                    #${m.word}(${m.cnt})
+	                </a>
+	            </c:forEach>
+	        </div>
+	        <div style="text-align: right;">
+	            현재 접속자 : ${currentCounter} 명<br>
+	            일일 접속자 : ${counter} 명<br>
+	            누적 접속자 : ${totalCounter} 명
+	        </div>
+	    </div>
 	</div>
 	
 	<!-- 캘린더 및 가계부 -->
