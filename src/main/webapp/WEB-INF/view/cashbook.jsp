@@ -149,43 +149,5 @@
 				</c:if>
 			</c:forEach>
 	</table>
-	<%-- 
-	<table>
-		<tr>
-			<th>일</th>
-			<th>월</th>
-			<th>화</th>
-			<th>수</th>
-			<th>목</th>
-			<th>금</th>
-			<th>토</th>
-		</tr>
-		<tr>
-			<%
-				for(int i=0; i<totalCell; i++){
-					
-					if(i%7 == 0){ // 7일 넘어가면 줄바꿈(한주 경과)
-			%>
-						</tr>
-						
-						<tr>		
-			<%
-					}		
-						// >마지막날짜 || <1  >> 30/31을 넘거나 1이전이면 공백
-						if((i-beginBlank +1) > lastDate || (i-beginBlank+1) < 1) {
-			%>
-							<td>&nbsp;</td>
-			<%
-						} else {
-			%>
-							<td>
-								<a><%=i-beginBlank+1%></a>
-							</td>
-			<%			
-						}
-				}
-			%>
-						</tr>
-	</table>	 --%>
 </body>
 </html>
