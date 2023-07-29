@@ -25,27 +25,39 @@
 <body>
 	<h1 class="head">가계 내역</h1>
 	<h2 class="head">${targetYear}년 ${targetMonth+1}월 ${targetDate}일</h2>
-	<table class="table table-hover">
-		<tr>
-			<th>구분</th>
-			<th>금액</th>
-			<th>메모</th>
-			<th>작성일</th>
-		</tr>
-		<c:forEach var="one" items="${list}">
+	<form action="${pageContext.request.contextPath}/removeCashbook" method="post">
+		<table class="table table-hover">
 			<tr>
-				<td>${one.category}</td>
-				<c:if test="${one.category == '수입'}">
-					<td style="color:blue">+${one.price}</td>
-				</c:if>
-				<c:if test="${one.category == '지출'}">
-					<td style="color:red;">-${one.price}</td>
-				</c:if>
-				<td>${one.memo}</td>
-				<td>${fn:substring(one.createdate,0,11)}</td>
+				<th>구분</th>
+				<th>금액</th>
+				<th>메모</th>
+				<th>작성일</th>
+				<th>삭제</th>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach var="one" items="${list}">
+				<tr>
+					<td>
+						<input type="hidden" name="cashbookNo" value="${one.cashbookNo}">
+						<input type="hidden" name="targetYear" value="${targetYear}">
+						<input type="hidden" name="targetMonth" value="${targetMonth}">
+						<input type="hidden" name="targetDate" value="${targetDate}">
+						${one.category}
+					</td>
+					<c:if test="${one.category == '수입'}">
+						<td style="color:blue">+${one.price}</td>
+					</c:if>
+					<c:if test="${one.category == '지출'}">
+						<td style="color:red;">-${one.price}</td>
+					</c:if>
+					<td>${one.memo}</td>
+					<td>${fn:substring(one.createdate,0,11)}</td>
+					<td>
+						<button type="submit" class="btn btn-outline-secondary">삭제</button>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</form>
 	<div class="head">
 		<a type="button" class="btn btn-outline-secondary mBtn" href="${pageContext.request.contextPath}/addCashbook?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${targetDate}">작성하기</a>
 		<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/cashbook?targetYear=${targetYear}&targetMonth=${targetMonth}">달력보기</a>

@@ -141,7 +141,7 @@ public class CashbookDao {
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT member_id memberId, category, cashbook_date cashbookDate, price, memo, createdate, updatedate FROM cashbook WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? AND DAY(cashbook_date) = ?";
+		String sql = "SELECT cashbook_no cashbookNo, member_id memberId, category, cashbook_date cashbookDate, price, memo, createdate, updatedate FROM cashbook WHERE member_id = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ? AND DAY(cashbook_date) = ?";
 		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -155,6 +155,7 @@ public class CashbookDao {
 			rs = stmt.executeQuery();
 			while(rs.next()) {
 				Cashbook c = new Cashbook();
+				c.setCashbookNo(rs.getInt("cashbookNo"));
 				c.setCategory(rs.getString("category"));
 				c.setCashbookDate(rs.getString("cashbookDate"));
 				c.setPrice(rs.getInt("price"));
@@ -176,6 +177,36 @@ public class CashbookDao {
 		}
 		
 		return list;
+	}
+	
+	// 내역 개별삭제 메소드
+	public int removeOneByNo(int cashbookNo) {
+		int row = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "DELETE FROM cashbook WHERE cashbook_no = ?";
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, cashbookNo);
+			
+			row = stmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+	    return row;
 	}
 	
 	// 반환값 cashbook_no 키값

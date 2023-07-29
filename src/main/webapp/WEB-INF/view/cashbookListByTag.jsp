@@ -50,7 +50,7 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=1">첫페이지</a>
+	<%-- <a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=1">첫페이지</a>
 	<div> 
 		<c:if test="${minPage>1}">
 			<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${minPage-pagePerPage}">이전</a>
@@ -71,6 +71,6 @@
 			<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${minPage+pagePerPage}">다음</a>
 		</c:if>
 		<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${lastPage}">마지막페이지</a>
-    </div>
+    </div> --%>
 </body>
 </html>
