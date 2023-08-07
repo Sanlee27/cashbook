@@ -17,13 +17,13 @@
 			<tr>
 				<th>아이디</th>
 				<td>
-					<input type="text" name="memberId" placeholder="아이디를 입력하세요">
+					<input type="text" name="memberId" placeholder="아이디를 입력하세요" value="user1">
 				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
 				<td>
-					<input type="password" name="memberPw" placeholder="비밀번호를 입력하세요">
+					<input type="password" name="memberPw" placeholder="비밀번호를 입력하세요" value="1234">
 				</td>
 			</tr>
 		</table>
