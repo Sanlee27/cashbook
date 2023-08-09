@@ -246,5 +246,42 @@ public class CashbookDao {
 			}
 		}
 		return cashbookNo;
-	} 
+	}
+	
+	// 수입 / 지출 ?
+	public int totalPrice(String memberId, String category, int targetYear, int targetMonth) {
+		int row = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT SUM(price) FROM cashbook WHERE member_id = ? AND category = ? AND YEAR(cashbook_date) = ? AND MONTH(cashbook_date) = ?";
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setString(2, category);
+			stmt.setInt(3, targetYear);
+			stmt.setInt(4, targetMonth);
+			
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				row = rs.getInt(1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return row;
+	}
 }

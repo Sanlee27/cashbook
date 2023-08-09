@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%><!-- jstl substring호출 -->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import = "cash.vo.*" %>
 <%
 	Member member = (Member) request.getAttribute("member");
@@ -84,10 +85,14 @@
 		<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 	</div>
 	<br>
-	<!-- 해시태그 -->
 	<div>
+		<!-- 해시태그 -->
 		<h3 style="text-align: center;">이달의 해시태그</h3>
 		<div style="display: flex; justify-content: space-between;">
+			<div style="text-align: left;">
+				<a style="color:blue"><strong>수입 : <fmt:formatNumber value="${income}" pattern="#,###" />원</strong></a><br>
+				<a style="color:red"><strong>지출 : <fmt:formatNumber value="${expend}" pattern="#,###" />원</strong></a><br>
+			</div>
 	        <div style="text-align: center; flex-grow: 1;">
 	            <c:forEach var="m" items="${htList}">
 	                <a class="hashTag" href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">
@@ -95,6 +100,7 @@
 	                </a>
 	            </c:forEach>
 	        </div>
+	        <!-- 접속자 Listener -->
 	        <div style="text-align: right;">
 	            현재 접속자 : ${currentCounter} 명<br>
 	            일일 접속자 : ${counter} 명<br>
@@ -105,7 +111,7 @@
 	
 	<!-- 캘린더 및 가계부 -->
 	<table class="table table-hover">
-		<tr>
+		<tr style="background-color: #EAEAEA;">
 			<th>일</th>
 			<th>월</th>
 			<th>화</th>
@@ -136,10 +142,10 @@
 								<c:if test="${d == fn:substring(c.cashbookDate, 8, 10)}">
 									<div>
 										<c:if test="${c.category == '수입'}">
-											<span style="color:blue">+${c.price}</span>
+											<span style="color:blue">+<fmt:formatNumber value="${c.price}" pattern="#,###" />원</span>
 										</c:if>
 										<c:if test="${c.category == '지출'}">
-											<span style="color:red;">-${c.price}</span>
+											<span style="color:red;">-<fmt:formatNumber value="${c.price}" pattern="#,###" />원</span>
 										</c:if>
 									</div>
 								</c:if>

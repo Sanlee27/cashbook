@@ -83,8 +83,23 @@ public class CashbookController extends HttpServlet {
 		
 		// 모델을 호출(DAO 타겟 월의 수입/지출 데이터)
 		List<Cashbook> list = new CashbookDao().selectCashbookListByMonth(memberId, targetYear, targetMonth+1);
-		
+			
 		List<Map<String,Object>> htList = new HashtagDao().selectWordCountByMonth(memberId, targetYear, targetMonth+1);
+		
+		String in = "수입";
+		String out = "지출";
+		
+		System.out.println(memberId);
+		System.out.println(in);
+		System.out.println(targetYear);
+		System.out.println(targetMonth+1);
+		
+		// 수입지출 합계액
+		int income = new CashbookDao().totalPrice(memberId, in, targetYear, targetMonth+1);
+		int expend = new CashbookDao().totalPrice(memberId, out, targetYear, targetMonth+1);
+		
+		System.out.println(income + "수입");
+		System.out.println(expend + "지출");
 		
 		// 뷰에 값넘기기(request 속성)
 		request.setAttribute("targetYear", targetYear);
@@ -96,7 +111,9 @@ public class CashbookController extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("htList", htList);
-		// 달력 출력하는 뷰
+		
+		request.setAttribute("income", income);
+		request.setAttribute("expend", expend);
 		
 		// 접속자수 
 		request.setAttribute("counter", counter);
