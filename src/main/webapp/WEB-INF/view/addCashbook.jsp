@@ -48,7 +48,7 @@
 			<tr>
 				<th>금액</th>
 				<td>
-					<input type="number" min="0" name="price" placeholder="금액">
+					<input type="number" min="0" name="price" placeholder="금액" required="required">
 				</td>
 			</tr>
 			<tr>
