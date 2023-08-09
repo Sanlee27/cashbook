@@ -37,7 +37,7 @@
 				</td>
 			</tr>
 			<tr>
-				<th>카테고리</th>
+				<th>구분</th>
 				<td>
 					<select name="category">
 						<option value="수입" selected="selected">수입</option>

@@ -11,7 +11,7 @@
 <body>
 	<%-- ${pageContext.request.contextPath} > request.getContextPath를 대신하는 EL --%>
 	<form action="${pageContext.request.contextPath}/login" method="post">
-		<h1>로그인</h1>
+		<h1>가계부 로그인</h1>
 		<br>
 		<table class="table table-hover">
 			<tr>

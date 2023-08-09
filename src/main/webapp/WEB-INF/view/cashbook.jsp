@@ -110,15 +110,15 @@
 	</div>
 	
 	<!-- 캘린더 및 가계부 -->
-	<table class="table table-hover">
-		<tr style="background-color: #EAEAEA;">
-			<th>일</th>
+	<table style="table-layout : fixed;">
+		<tr style="background-color: #A6A6A6;">
+			<th><a style="color: red;">일</a></th>
 			<th>월</th>
 			<th>화</th>
 			<th>수</th>
 			<th>목</th>
 			<th>금</th>
-			<th>토</th>
+			<th><a style="color: blue;">토</a></th>
 		</tr>
 		<tr>
 			<c:forEach var="i" begin="0" end="${totalCell-1}" step="1">
@@ -129,7 +129,7 @@
 				</c:if>
 				
 				<c:if test="${d < 1 || d > lastDate}">
-					<td></td>
+					<td style="background-color: #EEEEEE;"></td>
 				</c:if>
 				
 				<c:if test="${!(d < 1 || d > lastDate)}">
