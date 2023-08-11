@@ -90,9 +90,10 @@
 		<h3 style="text-align: center;">이달의 해시태그</h3>
 		<div style="display: flex; justify-content: space-between;">
 			<div style="text-align: left;">
-				<a style="color:blue"><strong>수입 : <fmt:formatNumber value="${income}" pattern="#,###" />원</strong></a><br>
-				<a style="color:red"><strong>지출 : <fmt:formatNumber value="${expend}" pattern="#,###" />원</strong></a><br>
-			</div>
+	            현재 접속자 : ${currentCounter} 명<br>
+	            일일 접속자 : ${counter} 명<br>
+	            누적 접속자 : ${totalCounter} 명
+	        </div>
 	        <div style="text-align: center; flex-grow: 1;">
 	            <c:forEach var="m" items="${htList}">
 	                <a class="hashTag" href="${pageContext.request.contextPath}/cashbookListByTag?word=${m.word}">
@@ -100,18 +101,16 @@
 	                </a>
 	            </c:forEach>
 	        </div>
-	        <!-- 접속자 Listener -->
-	        <div style="text-align: right;">
-	            현재 접속자 : ${currentCounter} 명<br>
-	            일일 접속자 : ${counter} 명<br>
-	            누적 접속자 : ${totalCounter} 명
-	        </div>
+	        <div style="text-align: right; font-size: 23px;">
+				<a style="color:blue"><strong>수입 : <fmt:formatNumber value="${income}" pattern="#,###" />원</strong></a><br>
+				<a style="color:red"><strong>지출 : <fmt:formatNumber value="${expend}" pattern="#,###" />원</strong></a><br>
+			</div>
 	    </div>
 	</div>
-	
+	<br>
 	<!-- 캘린더 및 가계부 -->
 	<table style="table-layout : fixed;">
-		<tr style="background-color: #A6A6A6;">
+		<tr style="background-color: #B7B7B7; font-size: 19px;">
 			<th><a style="color: red;">일</a></th>
 			<th>월</th>
 			<th>화</th>
@@ -133,9 +132,9 @@
 				</c:if>
 				
 				<c:if test="${!(d < 1 || d > lastDate)}">
-					<td>
+					<td style="cursor:pointer;" onclick="location.href='${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${d}'">
 						<div>
-							<a style="color:black" href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${d}">${d}</a>
+							<a>${d}</a>
 						</div>
 						<div>
 							<c:forEach var="c" items="${list}">
