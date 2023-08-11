@@ -209,6 +209,80 @@ public class CashbookDao {
 	    return row;
 	}
 	
+	// 가계내역 개별 조회
+	public Cashbook selectCashbook(int cashbookNo) {
+		Cashbook c = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT cashbook_no cashbookNo, member_id memberId, category, cashbook_date cashbookDate, price, memo, createdate, updatedate FROM cashbook WHERE cashbook_no = ? ";
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, cashbookNo);
+			
+			rs = stmt.executeQuery();
+			if(rs.next()) {
+				c = new Cashbook();
+				c.setCashbookNo(rs.getInt("cashbookNo"));
+				c.setMemberId(rs.getString("memberId"));
+				c.setCategory(rs.getString("category"));
+				c.setCashbookDate(rs.getString("cashbookDate"));
+				c.setPrice(rs.getInt("price"));
+				c.setMemo(rs.getString("memo"));
+				c.setCreatedate(rs.getString("createdate"));
+				c.setUpdatedate(rs.getString("updatedate"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return c;
+	}
+	
+	// 가계내역 수정
+	public int updateCashbook(Cashbook cashbook) {
+		int row = 0;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "UPDATE cashbook SET category = ?, cashbook_date = ?, price = ?, memo = ?, updatedate = NOW() WHERE cashbook_no = ? AND member_id = ?";
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, cashbook.getCategory());
+			stmt.setString(2, cashbook.getCashbookDate());
+			stmt.setInt(3, cashbook.getPrice());
+			stmt.setString(4, cashbook.getMemo());
+			stmt.setInt(5, cashbook.getCashbookNo());
+			stmt.setString(6, cashbook.getMemberId());
+			
+			row = stmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return row;
+	}
+	
 	// 반환값 cashbook_no 키값
 	public int insertCashbook(Cashbook cashbook) {
 		int cashbookNo = 0;
