@@ -1,6 +1,8 @@
 package cash.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,10 +36,12 @@ public class LoginController extends HttpServlet {
 		MemberDao memberDao  = new MemberDao();
 		Member loginMember = memberDao.selectMemberById(member);
 		
-		if(loginMember == null) { // null이면 로그인 실패
-			System.out.println("로그인실패");
-			response.sendRedirect(request.getContextPath()+"/login"); // jsp가 아닌 컨트롤러를 redirect > get방식으로 호출, login.jsp로..
-			return;
+		// alert 띄우게하기
+		if (loginMember == null) {
+		    System.out.println("로그인 실패");
+		    String msg = "아이디 혹은 비밀번호를 확인하세요.";
+		    response.sendRedirect(request.getContextPath() + "/login?msg=" + URLEncoder.encode(msg, "UTF-8"));
+		    return;
 		}
 		
 		// 로그인 성공시 : session 사용

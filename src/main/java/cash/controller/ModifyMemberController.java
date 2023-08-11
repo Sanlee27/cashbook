@@ -1,6 +1,8 @@
 package cash.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,6 +43,18 @@ public class ModifyMemberController extends HttpServlet {
 		System.out.println(memberPw);
 		
 		MemberDao dao = new MemberDao();
+		
+		int ckPw = dao.checkPw(memberId, memberPw);
+		System.out.println(ckPw + "ckPw");
+		
+		// 비밀번호 일치 시 alert와 같이 redirect
+		if(ckPw == 1) {
+			System.out.println("비밀번호가 이전과 일치합니다.");
+			String msg = "비밀번호가 이전과 일치합니다.";
+			response.sendRedirect(request.getContextPath()+"/modifyMember?msg=" + URLEncoder.encode(msg, "UTF-8"));
+			return;
+		}
+		
 		int row = dao.modifyMember(memberId, memberPw);
 		System.out.println(row + " << row");
 		if(row == 0) {

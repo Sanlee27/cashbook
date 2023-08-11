@@ -44,12 +44,15 @@ public class AddMemberController extends HttpServlet {
 		// 회원가입 DAO 호출
 		MemberDao memberDao = new MemberDao();
 		int row = memberDao.insertMember(member);
+		String msg = null;
 		if(row == 0) { // 회원가입 실패시
 			// addMember.jsp view를 이동하는 controller를 리다이렉트
-			response.sendRedirect(request.getContextPath()+"/addMember");
+			msg = "회원가입을 실패하였습니다.";
+			response.sendRedirect(request.getContextPath() + "/addMember?msg=" + msg);
 			System.out.println(row + "실패");
 		} else if (row == 1) {
 			// login.jsp view를 이동하는 controller를 리다이렉트
+			msg = "회원가입을 성공했습니다.";
 			response.sendRedirect(request.getContextPath()+"/login");
 			System.out.println(row + "성공");
 		} else {

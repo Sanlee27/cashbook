@@ -112,6 +112,42 @@ public class MemberDao {
 		return memberOne;
 	}
 	
+	// 비밀번호 변경 시 이전 비밀번화와 비교 메소드
+	public int checkPw(String memberId, String memberPw) {
+		int row = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt =null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) FROM member WHERE member_id = ? AND member_pw = PASSWORD(?)";
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, memberId);
+			stmt.setString(2, memberPw);
+			rs = stmt.executeQuery();
+			
+			if(rs.next()) {
+				row = rs.getInt(1);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				stmt.close();
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return row;
+		
+	}
+	
 	// 회원정보 수정 메소드
 	public int modifyMember(String memberId, String memberPw) {
 		int row = 0;

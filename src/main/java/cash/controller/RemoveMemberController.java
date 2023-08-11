@@ -1,6 +1,8 @@
 package cash.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +50,8 @@ public class RemoveMemberController extends HttpServlet {
 		int row = dao.removeMember(memberId, memberPw);
 		if(row == 0) {
 			System.out.println("탈퇴실패");
-			response.sendRedirect(request.getContextPath()+"/removeMember");
+			String msg = "비밀번호를 확인하세요..";
+			response.sendRedirect(request.getContextPath()+"/removeMember?msg=" + URLEncoder.encode(msg, "UTF-8"));
 			return;
 		}
 		// 탈퇴성공
