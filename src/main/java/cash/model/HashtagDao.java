@@ -48,6 +48,7 @@ public class HashtagDao {
 		
 		return list;
 	}
+	
 	// 메모중 해쉬태그(#) 삽입 메소드
 	public int insertHashtag(Hashtag hashtag) {
 		int row = 0;
@@ -62,6 +63,35 @@ public class HashtagDao {
 			stmt = conn.prepareStatement(sql);
 			stmt.setInt(1, hashtag.getCashbookNo());
 			stmt.setString(2, hashtag.getWord());
+			
+			row = stmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				stmt.close();
+				conn.close();
+			} catch(Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return row;
+	}
+	
+	// 해쉬태그 삭제 메소드
+	public int deleteHashtag(int cashbookNo) {
+		int row = 0;
+		
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "DELETE FROM hashtag WHERE cashbook_no = ?";
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			conn = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:3306/cash","root","java1234");
+			stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, cashbookNo);
 			
 			row = stmt.executeUpdate();
 			
