@@ -66,8 +66,8 @@
 		</table>
 		<div class="center-text">
 			<button type="submit" class="btn btn-outline-secondary">등록하기</button>
-			<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/cashbook">달력보기</a>
 			<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${targetDate}">뒤로가기</a>
+			<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/cashbook">달력보기</a>
 		</div>
 	</form>
 	</div>
