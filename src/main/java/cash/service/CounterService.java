@@ -8,6 +8,7 @@ import cash.model.CounterDao;
 
 public class CounterService {
 	private CounterDao counterDao;
+	// 최초접속시 insert처리
 	public void addCounter() {
 		this.counterDao = new CounterDao();
 		Connection conn = null;
@@ -28,6 +29,7 @@ public class CounterService {
 		// conn.commit();
 	}
 	
+	// 최초 이후 접속시 update처리
 	public void modifyCounter() {
 		this.counterDao = new CounterDao();
 		Connection conn = null;
@@ -48,6 +50,7 @@ public class CounterService {
 		// conn.commit();
 	}
 	
+	// 일일 접속자 카운트
 	public int getCounter() {
 		int counter = 0;
 		this.counterDao = new CounterDao();
@@ -70,6 +73,7 @@ public class CounterService {
 		return counter;
 	}
 	
+	// 누적 접속자 카운트
 	public int getCounterAll() {
 		int totalCounter = 0;
 		this.counterDao = new CounterDao();
