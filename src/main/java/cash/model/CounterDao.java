@@ -30,8 +30,7 @@ public class CounterDao {
 	public void updateCounter(Connection conn) throws Exception {
 		PreparedStatement stmt = null;
 		try {
-			String sql = "UPDATE counter SET counter_num = counter_num+1"
-						+ " WHERE counter_date = CURDATE()";
+			String sql = "UPDATE counter SET counter_num = counter_num+1 WHERE counter_date = CURDATE()";
 			stmt = conn.prepareStatement(sql);
 			int row = stmt.executeUpdate();
 		} catch(Exception e1) {
