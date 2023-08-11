@@ -37,7 +37,7 @@
 				<th>구분</th>
 				<th>금액</th>
 				<th>메모</th>
-				<th>작성일</th>
+				<!-- <th>작성일</th> -->
 				<th>수정</th>
 				<th>삭제</th>
 			</tr>
@@ -57,7 +57,7 @@
 						<td style="color:red;">-<fmt:formatNumber value="${one.price}" pattern="#,###" />원</td>
 					</c:if>
 					<td>${one.memo}</td>
-					<td>${fn:substring(one.createdate,0,11)}</td>
+					<%-- <td>${fn:substring(one.createdate,0,11)}</td> --%>
 					<td>
 						<a href="${pageContext.request.contextPath}/modifyCashbook?cashbookNo=${one.cashbookNo}&targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${targetDate}" class="btn btn-outline-secondary">수정</a>
 					</td>
