@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,10 +51,10 @@
 						${one.category}
 					</td>
 					<c:if test="${one.category == '수입'}">
-						<td style="color:blue">+${one.price}원</td>
+						<td style="color:blue">+<fmt:formatNumber value="${one.price}" pattern="#,###" />원</td>
 					</c:if>
 					<c:if test="${one.category == '지출'}">
-						<td style="color:red;">-${one.price}원</td>
+						<td style="color:red;">-<fmt:formatNumber value="${one.price}" pattern="#,###" />원</td>
 					</c:if>
 					<td>${one.memo}</td>
 					<td>${fn:substring(one.createdate,0,11)}</td>
