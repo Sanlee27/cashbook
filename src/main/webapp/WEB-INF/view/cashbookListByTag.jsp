@@ -27,13 +27,15 @@
 </head>
 <body>
 	<h1 class="head">#${word}</h1>
+	<br>
 	<div class="head">
 		<a type="button" class="btn btn-outline-secondary mBtn" href="${pageContext.request.contextPath}/cashbook">달력보기</a>
 	 	<a type="button" class="btn btn-outline-secondary mBtn" href="${pageContext.request.contextPath}/memberOne">회원정보</a>
 		<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 	</div>
+	<br>
 	<table class="table table-hover">
-		<tr>
+		<tr style="background-color: #B7B7B7;">
 			<th>일자</th>
 			<th>구분</th>
 			<th>금액</th>
@@ -44,33 +46,16 @@
 			<tr>
 				<td>${t.cashbookDate}</td>
 				<td>${t.category}</td>
-				<td>${t.price}</td>
+				<c:if test="${t.category == '수입'}">
+					<td style="color:blue">+${t.price}원</td>
+				</c:if>
+				<c:if test="${t.category == '지출'}">
+					<td style="color:red;">-${t.price}원</td>
+				</c:if>
 				<td>${t.memo}</td>
 				<td>${t.createdate}</td>
 			</tr>
 		</c:forEach>
 	</table>
-	<%-- <a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=1">첫페이지</a>
-	<div> 
-		<c:if test="${minPage>1}">
-			<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${minPage-pagePerPage}">이전</a>
-		</c:if>
-	</div>
-	<div>
-	    <c:forEach var="i" begin="${minPage}" end="${maxPage}" step="1">
-	    	<c:if test="${i == currentPage}">
-				<a>${i}</a>
-	    	</c:if>
-	    	<c:if test="${i != currentPage}">
-				<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${i}">${i}</a>
-	    	</c:if>
-	    </c:forEach>
-    </div>
-    <div>
-		<c:if test="${maxPage != lastPage}">
-			<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${minPage+pagePerPage}">다음</a>
-		</c:if>
-		<a href="${pageContext.request.contextPath}/cashbookListByTag?word=${word}&currentPage=${lastPage}">마지막페이지</a>
-    </div> --%>
 </body>
 </html>

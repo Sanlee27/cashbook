@@ -20,18 +20,24 @@
 		.mBtn {
 	    	margin-right: 15px;
 	    }
+	    
+	    th,td {
+			text-align: center;
+		}
 	</style>
 </head>
 <body>
 	<h1 class="head">가계 내역</h1>
 	<h2 class="head">${targetYear}년 ${targetMonth+1}월 ${targetDate}일</h2>
+	<br>
 	<form action="${pageContext.request.contextPath}/removeCashbook" method="post">
 		<table class="table table-hover">
-			<tr>
+			<tr style="background-color: #B7B7B7;">
 				<th>구분</th>
 				<th>금액</th>
 				<th>메모</th>
 				<th>작성일</th>
+				<th>수정</th>
 				<th>삭제</th>
 			</tr>
 			<c:forEach var="one" items="${list}">
@@ -44,15 +50,18 @@
 						${one.category}
 					</td>
 					<c:if test="${one.category == '수입'}">
-						<td style="color:blue">+${one.price}</td>
+						<td style="color:blue">+${one.price}원</td>
 					</c:if>
 					<c:if test="${one.category == '지출'}">
-						<td style="color:red;">-${one.price}</td>
+						<td style="color:red;">-${one.price}원</td>
 					</c:if>
 					<td>${one.memo}</td>
 					<td>${fn:substring(one.createdate,0,11)}</td>
 					<td>
-						<button type="submit" class="btn btn-outline-secondary">삭제</button>
+						<a href="${pageContext.request.contextPath}/modifyCashbook?cashbookNo=${one.cashbookNo}&targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${targetDate}" class="btn btn-outline-secondary">수정</a>
+					</td>
+					<td>
+						<button type="submit" class="btn btn-outline-secondary" onclick="return confirm('정말로 삭제하시겠습니까?');">삭제</button>
 					</td>
 				</tr>
 			</c:forEach>

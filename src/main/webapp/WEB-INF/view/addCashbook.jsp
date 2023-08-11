@@ -9,16 +9,22 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 	<style>
-		input[type='date']::before {
-		  content: attr(data-placeholder);
-		  width: 100%;
+		#form-container {
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
+		
+		.center-text,th {
+		    text-align: center;
 		}
 	</style>
 </head>
 <body>
+	<div id="form-container">
 	<form action="${pageContext.request.contextPath}/addCashbook" method="post">
 		<br>
-		<h1>가계부 내역 작성</h1>
+		<h1 class="center-text">가계부 내역 작성</h1>
 		<br>
 		<table class="table table-hover">
 			<tr>
@@ -58,9 +64,12 @@
 				</td>
 			</tr>
 		</table>
-		<button type="submit" class="btn btn-outline-secondary">등록하기</button>
-		<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/cashbook">달력보기</a>
-		<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${targetDate}">뒤로가기</a>
+		<div class="center-text">
+			<button type="submit" class="btn btn-outline-secondary">등록하기</button>
+			<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/cashbook">달력보기</a>
+			<a type="button" class="btn btn-outline-secondary" href="${pageContext.request.contextPath}/calendarOne?targetYear=${targetYear}&targetMonth=${targetMonth}&targetDate=${targetDate}">뒤로가기</a>
+		</div>
 	</form>
+	</div>
 </body>
 </html>
